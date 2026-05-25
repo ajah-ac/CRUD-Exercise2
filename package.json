@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "type": "module",
-  "scripts": {
+
+  "scripts": {  "dev": "tsx watch app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
