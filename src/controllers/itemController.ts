@@ -53,3 +53,22 @@ export const getItemById=async (req: Request, res: Response) => {
         }
     
 }}
+export const updateItem=async (req: Request, res: Response) => {
+   try{
+const id= req.params.id
+const updatedData=req.body
+const options={new:true}
+const result=await Item.findByIdAndUpdate(id,updatedData,options)
+if(!result){
+    return res.status(404).send({message:'Item not found'})
+}
+res.status(200).json(result)
+   }
+   catch (err: unknown) {
+    if(err instanceof Error){
+        res.status(500).send({ errorMessage: err.message })}
+      else {
+        res.status(500).send({ errorMessage: String(err) })
+    }
+   }
+}
