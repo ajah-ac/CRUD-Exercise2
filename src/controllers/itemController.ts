@@ -9,7 +9,7 @@ export const create = async (req: Request, res: Response) => {
           return res.status(400).send('Item already exists')
         }
         const savedData = await newItem.save()
-        res.status(200).json(savedData)
+        res.status(201).json(savedData)
     }
     catch (error: unknown) {
         if (error instanceof Error) {
@@ -71,4 +71,21 @@ res.status(200).json(result)
         res.status(500).send({ errorMessage: String(err) })
     }
    }
+}
+export const deleteItem=async(req:Request,res:Response)=>{
+    try{ 
+ const id=req.params.id
+ const deletedItem=await Item.findByIdAndDelete(id)
+ if(!deletedItem){
+    return res.status(404).send({message:'Item not found'})
+ }
+ res.status(204).send()
+
+    }
+    catch(err:unknown){
+        if(err instanceof Error){
+            res.status(500).send({ errorMessage: err.message })}
+          else {
+            res.status(500).send({ errorMessage: String(err) })
+        }}
 }
